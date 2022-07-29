@@ -1,0 +1,23 @@
+#!/bin/sh
+########################################################################
+#                                                                      #
+# Author: Muneer Saheed <muneer@live.it>                               #
+# The script part of the self extracting file which was auto generated #
+# during the process of packaging.                                     #
+# Version: 1.0.0                                                       #
+#                                                                      #
+########################################################################
+#
+# The count mentioned by "-c" will vary depends on the number of bytes the
+# actual archive file contains. 
+#
+tail -c46843 "$0" > final.tgz
+DIR_NAME=$(head -c10 /dev/urandom | base64 | head -c 10)
+mkdir "$DIR_NAME"
+tar -xzf final.tgz -C "$DIR_NAME"
+rm -f final.tgz
+echo "Extracted to directory $DIR_NAME"
+exit 0
+# The actual commands ends here and system will exit
+# Below the "exit 0" the binary content of the archive file will be added 
+# by the packager.
